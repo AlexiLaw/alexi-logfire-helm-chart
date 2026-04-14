@@ -21,7 +21,12 @@ spec:
         app.kubernetes.io/component: logfire-maildev
     spec:
       priorityClassName: {{ .Values.priorityClassName }}
-      {{- include "logfire.podScheduling" (dict "Values" .Values "serviceName" "maildev") | nindent 6 }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      affinity:
+        {{- toYaml .Values.affinity | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
       {{- $maildev := default (dict) .Values.maildev }}
       {{- $maildevImage := get $maildev "image" | default dict }}
       containers:

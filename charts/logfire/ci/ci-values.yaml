@@ -62,15 +62,30 @@ logfire-backend:
 logfire-ff-maintenance-worker:
   scratchVolume:
     storageClassName: standard
+    storage: "1Gi"
 
 logfire-ff-ingest:
   volumeClaimTemplates:
     storageClassName: standard
     storage: "1Gi"
+  autoscaling:
+    hpa:
+      enabled: true
+      memAverage: 65
+      cpuAverage: 20
+    minReplicas: 1
+    maxReplicas: 2
 
 logfire-ff-compaction-worker:
   scratchVolume:
     storageClassName: standard
+    storage: "1Gi"
+  autoscaling:
+    minReplicas: 1
+    maxReplicas: 2
+    # -- backward compat
+    memAverage: 65
+    cpuAverage: 20
 
 logfire-ai-gateway:
   enabled: true

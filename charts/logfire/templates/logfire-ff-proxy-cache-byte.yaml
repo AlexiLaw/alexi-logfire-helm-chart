@@ -38,7 +38,7 @@ spec:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
-      maxSurge: "50%"
+      maxSurge: "60%"
   selector:
     matchLabels:
       {{- include "logfire.selectorLabels" . | nindent 6 }}
